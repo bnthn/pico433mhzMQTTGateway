@@ -14,14 +14,20 @@ Protocol = namedtuple('Protocol',
                       ['pulselength',
                        'sync_high', 'sync_low',
                        'zero_high', 'zero_low',
-                       'one_high', 'one_low'])
+                       'one_high', 'one_low',
+                       'inverted'])
 PROTOCOLS = (None,
-             Protocol(350, 1, 31, 1, 3, 3, 1),
-             Protocol(650, 1, 10, 1, 2, 2, 1),
-             Protocol(100, 30, 71, 4, 11, 9, 6),
-             Protocol(380, 1, 6, 1, 3, 3, 1),
-             Protocol(500, 6, 14, 1, 2, 2, 1),
-             Protocol(200, 1, 10, 1, 5, 1, 1))
+             Protocol(350, 1, 31, 1, 3, 3, 1, False),
+             Protocol(650, 1, 10, 1, 2, 2, 1, False),
+             Protocol(100, 30, 71, 4, 11, 9, 6, False),
+             Protocol(380, 1, 6, 1, 3, 3, 1, False),
+             Protocol(500, 6, 14, 1, 2, 2, 1, False),
+             Protocol(200, 1, 10, 1, 5, 1, 1, False),
+             Protocol(275, 38, 1, 1, 3, 3, 1, False),
+             Protocol(500, 6, 14, 1, 2, 2, 1, False),
+             Protocol(200, 1, 10, 1, 5, 1, 1, False),
+             Protocol(150, 2, 62, 1, 6, 6, 1, False),
+             Protocol(270, 36, 1, 1, 2, 2, 1, True))
 
 
 class RFDevice:
@@ -29,7 +35,7 @@ class RFDevice:
 
     # pylint: disable=too-many-instance-attributes,too-many-arguments
     def __init__(self, gpio = None,
-                 tx_proto=1, tx_pulselength=None, tx_repeat=10, tx_length=24, rx_tolerance=80):
+                 tx_proto=1, tx_pulselength=None, tx_repeat=10, tx_length=24, rx_tolerance=80, tx_inverted=None):
         """Initialize the RF device."""
         self.gpio = gpio
         self.tx_enabled = False
@@ -40,6 +46,10 @@ class RFDevice:
             self.tx_pulselength = PROTOCOLS[tx_proto].pulselength
         self.tx_repeat = tx_repeat
         self.tx_length = tx_length
+        if tx_inverted:
+            self.tx_inverted = tx_inverted
+        else:
+            self.tx_inverted = PROTOCOLS[tx_proto].inverted
         self.rx_enabled = False
         self.rx_tolerance = rx_tolerance
         # internal values
@@ -82,10 +92,9 @@ class RFDevice:
             print("TX disabled")
         return True
 
-    def tx_code(self, code, tx_proto=None, tx_pulselength=None, tx_length=None):
+    def tx_code(self, code, tx_proto=None, tx_pulselength=None, tx_length=None, tx_inverted=None):
         """
         Send a decimal code.
-
         Optionally set protocol, pulselength and code length.
         When none given reset to default protocol, default pulselength and set code length to 24 bits.
         """
@@ -104,10 +113,16 @@ class RFDevice:
             self.tx_length = tx_length
         elif self.tx_proto == 6:
             self.tx_length = 32
+        elif self.tx_proto == 8:
+            self.tx_length = 12
         elif (code > 16777216):
             self.tx_length = 32
         else:
             self.tx_length = 24
+        if tx_inverted:
+            self.tx_inverted = tx_inverted
+        else:
+            self.tx_inverted = PROTOCOLS[self.tx_proto].inverted
         rawcode = "{{0:{}b}}".format(self.tx_length + 2).format(code)[2:]
         if self.tx_proto == 6:
             nexacode = ""
