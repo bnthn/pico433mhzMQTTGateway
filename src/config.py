@@ -10,8 +10,9 @@ MQTT_PORT=1883
 MQTT_USER="<USERNAME>"
 MQTT_PASSWD="<PASSWORD>"
 
-MQTT_TOPIC="topic/you/wish/to/publish/to"
+MQTT_TOPIC="pico433mhz"
 
+# Run sniffer.py and edit the codes below to match the ones your remote sends.
 CODES = {
     "1000000": {"subtopic": "A", "msg": "ON"},
     "1000001": {"subtopic": "A", "msg": "OFF"},  
