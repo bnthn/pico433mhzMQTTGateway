@@ -17,28 +17,25 @@ Thanks to:
 
 ## 1.1 Basics
 
-Set up micropython on pico (use the firmware for 'Raspberry Pi Pico W (with urequests and upip preinstalled)')
-URL: https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
-
-Update 'src/config.py' with your WiFi and MQTT Config. Also set the RX-Pin Number depending on which Pin you connected the Data Pin of your receiver.
-Copy all files from src to Pico (you can use thonny for this). 
-
-Make sure to install the umqtt.robust2 package, as this is needed for publishing MQTT-messages (also easy to do in thonny).
-URL: https://pypi.org/project/micropython-umqtt.robust2/
+- Set up micropython on pico (use the firmware for 'Raspberry Pi Pico W (with urequests and upip preinstalled)'). See https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
+- Make sure to install the umqtt.robust2 package, as this is needed for publishing MQTT-messages (easily doable in thonny IDE). See https://pypi.org/project/micropython-umqtt.robust2/
+- Update `src/config.py` with your WiFi and MQTT Config. Also set the RX-Pin Number depending on which Pin you connected the Data Pin of your receiver. Copy all files from src to Pico, e.g. via thonny IDE.
 
 Restarting the Pico (by plugging it in) will run the main.py script.
 
 ## 1.2. Sniffing 433Mhz traffic and editing topics/messages
 
-Run 'src/sniffer.py' and edit the codes in 'src/config.py' according to your needs.
+Run `src/sniffer.py` and edit the codes in `src/config.py` according to your needs.
 
-NOTE: Codes (as well as pulselength and protocol) could vary depending on how long the button on your remote is pressed! Press and hold the button on your remote and observe which code is the right one (gets repeated over and over while button is pressed). The wrong config yould yield buttons you did not press.
+**IMPORTANT NOTE**: Codes (as well as pulselength and protocol) can vary depending on how long the button on your remote is pressed! This behaviour occurs with some types / brands of remote controls I used. Press and hold the button on your remote and observe which code is the right one (gets repeated over and over while button is pressed). The wrong config could yield messages for buttons you did not press.
 
+### Sniffer output
 ```
 [...]
 { "code": "1000002", "pulselength": "325", "protocol": "1" }
 ```
 
+### Configuration
 ```
 MQTT_TOPIC="topic/you/wish/to/publish/to"
 
