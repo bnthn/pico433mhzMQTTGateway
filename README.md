@@ -10,7 +10,7 @@ Device will automatically detect Connection loss from MQTT-Server or WiFi and re
 
 Thanks to:
 - https://github.com/milaq/rpi-rf for the python code to receive and send 433Mhz codes on the Raspberry Pi
-- https://github.com/bnthn/pico433mhzMQTTGateway which this is a fork of (especially the pico edits)
+- https://github.com/AdrianCX/pico433mhz which this is a fork of (especially the pico edits)
 
 
 # 1. How to set up
