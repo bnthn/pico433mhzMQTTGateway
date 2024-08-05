@@ -123,7 +123,7 @@ class RFDevice:
             self.tx_inverted = tx_inverted
         else:
             self.tx_inverted = PROTOCOLS[self.tx_proto].inverted
-        rawcode = "{{0:{}b}}".format(self.tx_length + 2).format(code)[2:]
+        rawcode = "{{0:0{}b}}".format(self.tx_length + 2).format(code)[2:]
         if self.tx_proto == 6:
             nexacode = ""
             for b in rawcode:

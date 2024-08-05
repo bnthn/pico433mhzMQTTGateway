@@ -57,7 +57,7 @@ CODES = {
 ![The receiver inside its opened case](/pictures/hardware.jpg)
 
 - Make sure to meet the [regulations regarding 433mhz](https://en.wikipedia.org/wiki/LPD433) in your country of use.
-- The remotes i tested are the ones shown in the first picture above, from right to left:
+- For remotes [look e.g. here](https://github.com/sui77/rc-switch/wiki/List_KnownDevices). The ones i tested are the ones shown in the first picture above, from left to right:
     - **Sonoff RM433R2**: Has the most modern feel to it and is available to buy (at the time of writing this) for 5-10 bucks depending on the country / shop.
     - **Brennenstuhl RCS 1000 N Comfort**: This is a set of the remote and the power plugs it should be used with, but you can get the remote seperately on ebay etc. 
     - **Elro AB440R**: Pretty much identical to the Brennenstuhl above. Would not recommend buying these today, but i have been using two of these for 10 years in their intended use case and they are still going strong.
