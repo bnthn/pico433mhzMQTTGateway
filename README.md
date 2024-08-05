@@ -1,25 +1,26 @@
-# Robust RPi Pico 433Mhz-to-MQTT Gateway for using 433Mhz Remotes in your Smart-Home Projects
+# Raspberry Pi Pico W 433Mhz-to-MQTT Gateway
 
 Use common 433Mhz Remotes with your Smart Home Applications (e.g. via Home Assistant) by reacting to MQTT-Messages.
 
-Device will automatically detect Connection loss from MQTT-Server or WiFi and react by reconnecting or resetting the device until the connection can be established again. This is indicated by the onboard LED blinking slowly.
+It is built using a Raspberri Pi Pico W and a Superheterodyne 433mhz receiver module. Placed at an elevated position and central place, **it detects signals from up to ~10m away through a couple of walls**, and even more with open view. Be sure to read the [notes on the hardware](#2-notes-on-the-hardware) below.
 
+The device will automatically detect Connection loss from MQTT-Server or WiFi and react by reconnecting or resetting the device until the connection can be established again. This is indicated by the onboard LED blinking slowly.
 
-![Endproduct with antenna attached next to remote control](/pictures/endproduct_unpacked.jpg)
-![Endproduct inside a raspberry pi zero case next to remote control](/pictures/endproduct_insidecase.jpg)
+![final 433mhz receiver standing on a table with three different tested remotes laying in front of it](/pictures/final_product.jpg)
 
 Thanks to:
-- https://github.com/milaq/rpi-rf for the python code to receive and send 433Mhz codes on the Raspberry Pi
-- https://github.com/AdrianCX/pico433mhz which this is a fork of (especially the pico edits)
+- [milaq/rpi-rf](https://github.com/milaq/rpi-rf) for the python code to receive and send 433Mhz codes on the Raspberry Pi
+- [AdrianCX/pico433mhz](https://github.com/AdrianCX/pico433mhz) which this is a fork of, especially for the pico edits.
 
 
 # 1. How to set up
 
 ## 1.1 Basics
 
-- Set up micropython on pico (use the firmware for 'Raspberry Pi Pico W (with urequests and upip preinstalled)'). See https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
-- Make sure to install the umqtt.robust2 package, as this is needed for publishing MQTT-messages (easily doable in thonny IDE). See https://pypi.org/project/micropython-umqtt.robust2/
-- Update `src/config.py` with your WiFi and MQTT Config. Also set the RX-Pin Number depending on which Pin you connected the Data Pin of your receiver. Copy all files from src to Pico, e.g. via thonny IDE.
+- Set up [micropython on your pi](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html). Use the firmware for **Raspberry Pi Pico W**.
+- Installing packages and the code in this repo can be done e.g. with [Thonny IDE](https://thonny.org/)
+- Make sure to install the [umqtt.robust2](https://pypi.org/project/micropython-umqtt.robust2/) package, as this is needed for publishing MQTT-messages.  
+- Update `src/config.py` with your WiFi and MQTT Config. Also set the RX-Pin Number depending on which Pin you connected the Data Pin of your receiver.
 
 Restarting the Pico (by plugging it in) will run the main.py script.
 
@@ -53,8 +54,12 @@ CODES = {
 
 # 2. Notes on the Hardware
 
-- Make sure to meet the regulations regarding 433mhz (https://en.wikipedia.org/wiki/LPD433)
-- Try to use the "right" receiver module(s). Use RXB12 instead of XY-MK-5V (https://blog.thesen.eu/433mhz-empfaenger-fuer-arduino-co-rxb12-vs-xy-mk-5v/)
-- Use a coil loaded antenna, which is often sent along with the receiver, or even better build your own! (https://www.instructables.com/433-MHz-Coil-loaded-antenna/)
-- The modules are rated for 3.3V i guess, but i use them with the VBUS-Pin (passes through the voltage of the USB-Port, which should be 5V). 
+![The receiver inside its opened case](/pictures/hardware.jpg)
 
+- Make sure to meet the [regulations regarding 433mhz](https://en.wikipedia.org/wiki/LPD433) in your country of use.
+- The remotes i tested are the ones shown in the first picture above, from right to left:
+    - **Sonoff RM433R2**: Has the most modern feel to it and is available to buy (at the time of writing this) for 5-10 bucks depending on the country / shop.
+    - **Brennenstuhl RCS 1000 N Comfort**: This is a set of the remote and the power plugs it should be used with, but you can get the remote seperately on ebay etc. 
+    - **Elro AB440R**: Pretty much identical to the Brennenstuhl above. Would not recommend buying these today, but i have been using two of these for 10 years in their intended use case and they are still going strong.
+- You can use a coil loaded antenna, which is often sent along with the receiver, but for the best possible result it is advised to [build your own!](https://www.instructables.com/433-MHz-Coil-loaded-antenna/). I used the linked method and spun it around a toothpick using a hot glue gun and put heat shrinking tubes on top of it.
+- Try to use the [best receiver module(s)](https://blog.thesen.eu/433mhz-empfaenger-fuer-arduino-co-rxb12-vs-xy-mk-5v/). Use **Superheterodyne like RXB12** instead of **XY-MK-5V**.
