@@ -53,8 +53,12 @@ CODES = {
 
 # 2. Notes on the Hardware
 
-- Make sure to meet the regulations regarding 433mhz (https://en.wikipedia.org/wiki/LPD433)
-- Try to use the "right" receiver module(s). Use RXB12 instead of XY-MK-5V (https://blog.thesen.eu/433mhz-empfaenger-fuer-arduino-co-rxb12-vs-xy-mk-5v/)
-- Use a coil loaded antenna, which is often sent along with the receiver, or even better build your own! (https://www.instructables.com/433-MHz-Coil-loaded-antenna/)
-- The modules are rated for 3.3V i guess, but i use them with the VBUS-Pin (passes through the voltage of the USB-Port, which should be 5V). 
+![The receiver inside its opened case](/pictures/hardware.jpg)
 
+- Make sure to meet the [regulations regarding 433mhz](https://en.wikipedia.org/wiki/LPD433) in your country of use.
+- For remotes [look e.g. here](https://github.com/sui77/rc-switch/wiki/List_KnownDevices). The ones i tested are the ones shown in the first picture above, from left to right:
+    - **Sonoff RM433R2**: Has the most modern feel to it and is available to buy (at the time of writing this) for 5-10 bucks depending on the country / shop.
+    - **Brennenstuhl RCS 1000 N Comfort**: This is a set of the remote and the power plugs it should be used with, but you can get the remote seperately on ebay etc. 
+    - **Elro AB440R**: Pretty much identical to the Brennenstuhl above. Would not recommend buying these today, but i have been using two of these for 10 years in their intended use case and they are still going strong.
+- You can use a coil loaded antenna, which is often sent along with the receiver, but for the best possible result it is advised to [build your own!](https://www.instructables.com/433-MHz-Coil-loaded-antenna/). I used the linked method and spun it around a toothpick using a hot glue gun and put heat shrinking tubes on top of it.
+- Try to use the [best receiver module(s)](https://blog.thesen.eu/433mhz-empfaenger-fuer-arduino-co-rxb12-vs-xy-mk-5v/). Use **Superheterodyne like RXB12** instead of **XY-MK-5V**.
