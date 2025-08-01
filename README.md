@@ -5,8 +5,7 @@ Use common 433Mhz Remotes with your Smart Home Applications (e.g. via Home Assis
 Device will automatically detect Connection loss from MQTT-Server or WiFi and react by reconnecting or resetting the device until the connection can be established again. This is indicated by the onboard LED blinking slowly.
 
 
-![Endproduct with antenna attached next to remote control](/pictures/endproduct_unpacked.jpg)
-![Endproduct inside a raspberry pi zero case next to remote control](/pictures/endproduct_insidecase.jpg)
+![Endproduct with antenna attached next to remote controls](/pictures/final_product.jpg)
 
 Thanks to:
 - https://github.com/milaq/rpi-rf for the python code to receive and send 433Mhz codes on the Raspberry Pi
@@ -17,11 +16,11 @@ Thanks to:
 
 ## 1.1 Basics
 
-- Set up micropython on pico (use the firmware for 'Raspberry Pi Pico W (with urequests and upip preinstalled)'). See https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
+- Set up micropython on pico (use the firmware for **Raspberry Pi Pico W (with urequests and upip preinstalled)**). See https://www.raspberrypi.com/documentation/microcontrollers/micropython.html
 - Make sure to install the umqtt.robust2 package, as this is needed for publishing MQTT-messages (easily doable in thonny IDE). See https://pypi.org/project/micropython-umqtt.robust2/
 - Update `src/config.py` with your WiFi and MQTT Config. Also set the RX-Pin Number depending on which Pin you connected the Data Pin of your receiver. Copy all files from src to Pico, e.g. via thonny IDE.
 
-Restarting the Pico (by plugging it in) will run the main.py script.
+Restarting the Pico (by plugging it in) will run the `main.py` script.
 
 ## 1.2. Sniffing 433Mhz traffic and editing topics/messages
 
